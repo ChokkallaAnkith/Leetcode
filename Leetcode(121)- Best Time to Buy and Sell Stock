@@ -1,0 +1,7 @@
+class Solution:
+    def maxProfit(self, prices: List[int]) -> int:
+        mx , mn = -math.inf,math.inf
+        for x in prices:
+            mn = mn if mn <= x else x
+            mx = mx if mx > x - mn else x - mn
+        return mx
