@@ -1,0 +1,27 @@
+class Solution:
+    def totalCost(self, costs: List[int], k: int, candidates: int) -> int:
+        # use 2 pointer to divide the lists into 2 left andd right
+        
+        l = 0
+        r = len(costs)-1
+        heap = []
+        tot = 0
+        for i in range(candidates):
+            if l <= r:
+                heapq.heappush(heap,(costs[l],l))
+                l += 1
+            if l <= r:
+                heapq.heappush(heap,(costs[r],r))
+                r -= 1
+        while k :
+            cost , i = heapq.heappop(heap)
+            tot += cost
+            k -= 1
+            if l <= r:
+                if i <= l :
+                    heapq.heappush(heap,(costs[l],l))
+                    l += 1
+                elif i > r:
+                    heapq.heappush(heap,(costs[r],r))
+                    r -= 1
+        return tot
