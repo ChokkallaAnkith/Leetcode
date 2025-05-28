@@ -1,0 +1,23 @@
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+
+class Solution:
+    def longestZigZag(self, root: Optional[TreeNode]) -> int:
+        # Helper function for DFS traversal
+        def dfs(node, curLen, goLeft):
+            if not node:
+                return curLen 
+            
+            if goLeft:
+                # If moving left, increment length and toggle to right; reset length if moving right
+                return max(dfs(node.left, curLen + 1, False), dfs(node.right, 0, True))
+            else:
+                # If moving right, increment length and toggle to left; reset length if moving left
+                return max(dfs(node.left, 0, False), dfs(node.right, curLen + 1, True))
+
+        # Start DFS from both left and right subtrees of the root, toggling directions
+        return max(dfs(root.left, 0, False), dfs(root.right, 0, True))
