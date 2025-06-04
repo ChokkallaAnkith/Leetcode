@@ -1,0 +1,15 @@
+class Solution:
+    def longestPalindrome(self, s: str) -> int:
+        freq = {}
+        for ch in s:
+            freq[ch] = freq.get(ch, 0) + 1
+        length = 0
+        odd = False
+        for f in freq.values():
+            length += (f // 2) * 2
+            if f % 2 == 1:
+                odd = True
+        if odd: #If odd: + 1 for palindrome center
+            length += 1
+
+        return length
